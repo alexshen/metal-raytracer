@@ -1,0 +1,421 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8C25C2FD23F2AF6E00D68E1C /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C25C2FC23F2AF6E00D68E1C /* MetalKit.framework */; };
+		8C64766B23F11E9B004E62B3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64766A23F11E9B004E62B3 /* AppDelegate.m */; };
+		8C64766E23F11E9B004E62B3 /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C64766D23F11E9B004E62B3 /* Renderer.mm */; };
+		8C64767123F11E9B004E62B3 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C64767023F11E9B004E62B3 /* GameViewController.m */; };
+		8C64767323F11E9B004E62B3 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 8C64767223F11E9B004E62B3 /* Shaders.metal */; };
+		8C64767623F11E9F004E62B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C64767523F11E9F004E62B3 /* Assets.xcassets */; };
+		8C64767923F11E9F004E62B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C64767723F11E9F004E62B3 /* Main.storyboard */; };
+		8C64767C23F11E9F004E62B3 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8C64767B23F11E9F004E62B3 /* main.mm */; };
+		8C64768823F12C9A004E62B3 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C64768623F12C9A004E62B3 /* scene.cpp */; };
+		8C64768C23F12CCD004E62B3 /* bvh_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C64768A23F12CCD004E62B3 /* bvh_node.cpp */; };
+		8C64769323F12D15004E62B3 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C64769123F12D15004E62B3 /* utils.cpp */; };
+		8C9615D123F38FD6004AC7C4 /* tracer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8C9615D023F38FD6004AC7C4 /* tracer.cpp */; };
+		8CFDD5FD23F418FC00073B22 /* RGBA16Image.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8CFDD5FC23F418FC00073B22 /* RGBA16Image.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8C25C2FC23F2AF6E00D68E1C /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		8C64766623F11E9A004E62B3 /* metal-raytracer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "metal-raytracer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C64766923F11E9B004E62B3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8C64766A23F11E9B004E62B3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8C64766C23F11E9B004E62B3 /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		8C64766D23F11E9B004E62B3 /* Renderer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
+		8C64766F23F11E9B004E62B3 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		8C64767023F11E9B004E62B3 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		8C64767223F11E9B004E62B3 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		8C64767423F11E9B004E62B3 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		8C64767523F11E9F004E62B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8C64767823F11E9F004E62B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8C64767A23F11E9F004E62B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C64767B23F11E9F004E62B3 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		8C64767D23F11E9F004E62B3 /* metal_raytracer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = metal_raytracer.entitlements; sourceTree = "<group>"; };
+		8C64768423F12588004E62B3 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		8C64768623F12C9A004E62B3 /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
+		8C64768723F12C9A004E62B3 /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
+		8C64768923F12CC2004E62B3 /* sphere_object.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphere_object.h; sourceTree = "<group>"; };
+		8C64768A23F12CCD004E62B3 /* bvh_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bvh_node.cpp; sourceTree = "<group>"; };
+		8C64768B23F12CCD004E62B3 /* bvh_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bvh_node.h; sourceTree = "<group>"; };
+		8C64768E23F12CDD004E62B3 /* object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = object.h; sourceTree = "<group>"; };
+		8C64769023F12CEA004E62B3 /* aabb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
+		8C64769123F12D15004E62B3 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		8C64769223F12D15004E62B3 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
+		8C64769423F12D89004E62B3 /* scene_types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scene_types.h; sourceTree = "<group>"; };
+		8C6DDA5123F25AD900A1DE3F /* libboost_program_options-mt.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libboost_program_options-mt.a"; path = "../../../../../usr/local/Cellar/boost/1.71.0/lib/libboost_program_options-mt.a"; sourceTree = "<group>"; };
+		8C9615CE23F38602004AC7C4 /* tracer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tracer.h; sourceTree = "<group>"; };
+		8C9615D023F38FD6004AC7C4 /* tracer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tracer.cpp; sourceTree = "<group>"; };
+		8C9615D223F39089004AC7C4 /* metal_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = metal_bridge.h; sourceTree = "<group>"; };
+		8C9615D323F3959D004AC7C4 /* color.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
+		8CFDD5FB23F418FC00073B22 /* RGBA16Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RGBA16Image.h; sourceTree = "<group>"; };
+		8CFDD5FC23F418FC00073B22 /* RGBA16Image.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RGBA16Image.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8C64766323F11E9A004E62B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C25C2FD23F2AF6E00D68E1C /* MetalKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8C64765D23F11E9A004E62B3 = {
+			isa = PBXGroup;
+			children = (
+				8C64766823F11E9B004E62B3 /* metal-raytracer */,
+				8C64766723F11E9A004E62B3 /* Products */,
+				8C64768323F12588004E62B3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8C64766723F11E9A004E62B3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8C64766623F11E9A004E62B3 /* metal-raytracer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8C64766823F11E9B004E62B3 /* metal-raytracer */ = {
+			isa = PBXGroup;
+			children = (
+				8C64769023F12CEA004E62B3 /* aabb.h */,
+				8C64766923F11E9B004E62B3 /* AppDelegate.h */,
+				8C64766A23F11E9B004E62B3 /* AppDelegate.m */,
+				8C64768A23F12CCD004E62B3 /* bvh_node.cpp */,
+				8C64768B23F12CCD004E62B3 /* bvh_node.h */,
+				8C9615D323F3959D004AC7C4 /* color.h */,
+				8C64766F23F11E9B004E62B3 /* GameViewController.h */,
+				8C64767023F11E9B004E62B3 /* GameViewController.m */,
+				8C64767B23F11E9F004E62B3 /* main.mm */,
+				8C64768E23F12CDD004E62B3 /* object.h */,
+				8C64766C23F11E9B004E62B3 /* Renderer.h */,
+				8C64766D23F11E9B004E62B3 /* Renderer.mm */,
+				8CFDD5FB23F418FC00073B22 /* RGBA16Image.h */,
+				8CFDD5FC23F418FC00073B22 /* RGBA16Image.mm */,
+				8C64769423F12D89004E62B3 /* scene_types.h */,
+				8C64768623F12C9A004E62B3 /* scene.cpp */,
+				8C64768723F12C9A004E62B3 /* scene.h */,
+				8C64767423F11E9B004E62B3 /* ShaderTypes.h */,
+				8C64768923F12CC2004E62B3 /* sphere_object.h */,
+				8C9615D023F38FD6004AC7C4 /* tracer.cpp */,
+				8C9615CE23F38602004AC7C4 /* tracer.h */,
+				8C9615D223F39089004AC7C4 /* metal_bridge.h */,
+				8C64769123F12D15004E62B3 /* utils.cpp */,
+				8C64769223F12D15004E62B3 /* utils.h */,
+				8C64767223F11E9B004E62B3 /* Shaders.metal */,
+				8C64767523F11E9F004E62B3 /* Assets.xcassets */,
+				8C64767A23F11E9F004E62B3 /* Info.plist */,
+				8C64767723F11E9F004E62B3 /* Main.storyboard */,
+				8C64767D23F11E9F004E62B3 /* metal_raytracer.entitlements */,
+			);
+			path = "metal-raytracer";
+			sourceTree = "<group>";
+		};
+		8C64768323F12588004E62B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C25C2FC23F2AF6E00D68E1C /* MetalKit.framework */,
+				8C6DDA5123F25AD900A1DE3F /* libboost_program_options-mt.a */,
+				8C64768423F12588004E62B3 /* Metal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8C64766523F11E9A004E62B3 /* metal-raytracer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C64768023F11E9F004E62B3 /* Build configuration list for PBXNativeTarget "metal-raytracer" */;
+			buildPhases = (
+				8C64766223F11E9A004E62B3 /* Sources */,
+				8C64766323F11E9A004E62B3 /* Frameworks */,
+				8C64766423F11E9A004E62B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "metal-raytracer";
+			productName = "metal-raytracer";
+			productReference = 8C64766623F11E9A004E62B3 /* metal-raytracer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8C64765E23F11E9A004E62B3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = ashen;
+				TargetAttributes = {
+					8C64766523F11E9A004E62B3 = {
+						CreatedOnToolsVersion = 11.3;
+					};
+				};
+			};
+			buildConfigurationList = 8C64766123F11E9A004E62B3 /* Build configuration list for PBXProject "metal-raytracer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8C64765D23F11E9A004E62B3;
+			productRefGroup = 8C64766723F11E9A004E62B3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8C64766523F11E9A004E62B3 /* metal-raytracer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8C64766423F11E9A004E62B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C64767623F11E9F004E62B3 /* Assets.xcassets in Resources */,
+				8C64767923F11E9F004E62B3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8C64766223F11E9A004E62B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8C9615D123F38FD6004AC7C4 /* tracer.cpp in Sources */,
+				8C64767C23F11E9F004E62B3 /* main.mm in Sources */,
+				8C64767323F11E9B004E62B3 /* Shaders.metal in Sources */,
+				8C64766E23F11E9B004E62B3 /* Renderer.mm in Sources */,
+				8C64769323F12D15004E62B3 /* utils.cpp in Sources */,
+				8C64767123F11E9B004E62B3 /* GameViewController.m in Sources */,
+				8C64768823F12C9A004E62B3 /* scene.cpp in Sources */,
+				8C64766B23F11E9B004E62B3 /* AppDelegate.m in Sources */,
+				8CFDD5FD23F418FC00073B22 /* RGBA16Image.mm in Sources */,
+				8C64768C23F12CCD004E62B3 /* bvh_node.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		8C64767723F11E9F004E62B3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8C64767823F11E9F004E62B3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8C64767E23F11E9F004E62B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8C64767F23F11E9F004E62B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8C64768123F11E9F004E62B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_INTEGER = NO;
+				CODE_SIGN_ENTITLEMENTS = "metal-raytracer/metal_raytracer.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3CU8PEJE6X;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "metal-raytracer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib,
+					/usr/local/Cellar/boost/1.71.0/lib,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashen.metal-raytracer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include;
+			};
+			name = Debug;
+		};
+		8C64768223F11E9F004E62B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_UNDEFINED_BEHAVIOR_SANITIZER_INTEGER = NO;
+				CODE_SIGN_ENTITLEMENTS = "metal-raytracer/metal_raytracer.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3CU8PEJE6X;
+				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "metal-raytracer/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/lib,
+					/usr/local/Cellar/boost/1.71.0/lib,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ashen.metal-raytracer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = /usr/local/include;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8C64766123F11E9A004E62B3 /* Build configuration list for PBXProject "metal-raytracer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C64767E23F11E9F004E62B3 /* Debug */,
+				8C64767F23F11E9F004E62B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C64768023F11E9F004E62B3 /* Build configuration list for PBXNativeTarget "metal-raytracer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8C64768123F11E9F004E62B3 /* Debug */,
+				8C64768223F11E9F004E62B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8C64765E23F11E9A004E62B3 /* Project object */;
+}
