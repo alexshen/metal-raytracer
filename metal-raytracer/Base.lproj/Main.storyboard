@@ -774,8 +774,17 @@
                                 </textFieldCell>
                             </textField>
                             <progressIndicator wantsLayer="YES" ambiguous="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="1jd-UD-oLN">
-                                <rect key="frame" x="20" y="435" width="142" height="20"/>
+                                <rect key="frame" x="20" y="423" width="142" height="20"/>
                             </progressIndicator>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFm-nq-rCJ">
+                                <rect key="frame" x="20" y="400" width="81" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Render Time" id="cc3-KQ-Grw">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                         <constraints>
                             <constraint firstItem="iVW-oC-VJn" firstAttribute="top" secondItem="Iot-bj-tNw" secondAttribute="bottom" constant="8" id="16j-tm-tCf"/>
@@ -783,6 +792,7 @@
                             <constraint firstItem="Iot-bj-tNw" firstAttribute="top" secondItem="uIQ-6S-riV" secondAttribute="bottom" constant="13" id="4Un-I9-592"/>
                             <constraint firstItem="SMH-Nh-kWW" firstAttribute="top" secondItem="uIQ-6S-riV" secondAttribute="bottom" constant="13" id="FFS-q8-puB"/>
                             <constraint firstItem="Oev-jj-eDu" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="HD7-c0-Q90"/>
+                            <constraint firstItem="1jd-UD-oLN" firstAttribute="top" secondItem="3N6-pS-1p8" secondAttribute="bottom" constant="8" id="Jvq-Ru-hsJ"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Oev-jj-eDu" secondAttribute="trailing" constant="20" symbolic="YES" id="MdJ-Il-5J3"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uIQ-6S-riV" secondAttribute="trailing" constant="20" symbolic="YES" id="OPS-sG-LYZ"/>
                             <constraint firstItem="odr-3f-WfX" firstAttribute="top" secondItem="Oev-jj-eDu" secondAttribute="bottom" constant="6" id="TTt-Py-9IE"/>
@@ -790,7 +800,6 @@
                             <constraint firstItem="1jd-UD-oLN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="X4b-RN-ZWH"/>
                             <constraint firstItem="Oev-jj-eDu" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Zp4-iM-BRU"/>
                             <constraint firstItem="iVW-oC-VJn" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="agd-Uf-TZo"/>
-                            <constraint firstItem="1jd-UD-oLN" firstAttribute="top" secondItem="iVW-oC-VJn" secondAttribute="bottom" constant="20" id="bvz-x8-ElV"/>
                             <constraint firstItem="uIQ-6S-riV" firstAttribute="top" secondItem="odr-3f-WfX" secondAttribute="bottom" constant="6" id="eFA-bx-fBU"/>
                             <constraint firstItem="3N6-pS-1p8" firstAttribute="top" secondItem="iVW-oC-VJn" secondAttribute="bottom" constant="8" id="fIe-sG-VCY"/>
                             <constraint firstItem="uIQ-6S-riV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="gNl-rK-833"/>
@@ -805,6 +814,7 @@
                         <outlet property="numSamplesSlider" destination="iVW-oC-VJn" id="bM1-w7-koW"/>
                         <outlet property="numSamplesText" destination="SMH-Nh-kWW" id="l7r-cX-Rp3"/>
                         <outlet property="renderProgressIndicator" destination="1jd-UD-oLN" id="1hR-lk-IBq"/>
+                        <outlet property="renderTimeText" destination="nFm-nq-rCJ" id="eT5-fc-d2m"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

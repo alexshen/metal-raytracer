@@ -22,5 +22,6 @@
 @property (weak) IBOutlet NSButton *bruteForceToggle;
 @property (weak) IBOutlet NSSlider *numSamplesSlider;
 @property (weak) IBOutlet NSProgressIndicator *renderProgressIndicator;
+@property (weak) IBOutlet NSTextField *renderTimeText;
 
 @end
