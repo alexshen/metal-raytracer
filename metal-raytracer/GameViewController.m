@@ -9,8 +9,11 @@
 #import "GameViewController.h"
 #import "Renderer.h"
 
-static char kProgressChanged = 0;
-static char kNumSamplesChanged = 0;
+static char kProgressChanged;
+
+@interface GameViewController ()
+@property (nonatomic) Renderer* renderer;
+@end
 
 @implementation GameViewController
 {
@@ -36,41 +39,29 @@ static char kNumSamplesChanged = 0;
         return;
     }
 
-    _renderer = [[Renderer alloc] initWithMetalKitView:_view];
-    [_renderer mtkView:_view drawableSizeWillChange:_view.bounds.size];
-    _view.delegate = _renderer;
-    
-    self.numSamplesText.intValue = self.renderer.numSamples;
-    self.numSamplesSlider.intValue = self.renderer.numSamples;
-    self.debugBVHToggle.state = self.renderer.debugBVHHit;
-    self.hardwareRenderingToggle.state = self.renderer.hardwareRendering;
-    self.bruteForceToggle.state = self.renderer.bruteForce;
-    self.renderTimeText.hidden = YES;
-    
-    [self.renderer addObserver:self forKeyPath:@"progress" options:0 context:&kProgressChanged];
-    [self.renderer addObserver:self forKeyPath:@"numSamples" options:0 context:&kNumSamplesChanged];
+    self.renderer = [[Renderer alloc] initWithMetalKitView:_view];
+    [self.renderer mtkView:_view drawableSizeWillChange:_view.bounds.size];
+    _view.delegate = self.renderer;
     
     _renderStartTime = mach_absolute_time() * _machTimeToSecs;
+
+    [self.renderer addObserver:self forKeyPath:@"progress" options:0 context:&kProgressChanged];
 }
 
 - (void)dealloc
 {
     [self.renderer removeObserver:self forKeyPath:@"progress"];
-    [self.renderer removeObserver:self forKeyPath:@"numSamples"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     if (context == &kProgressChanged) {
-        self.renderProgressIndicator.doubleValue = self.renderer.progress;
         if (self.renderer.progress == 0.0f) {
             _renderStartTime = mach_absolute_time() * _machTimeToSecs;
         }
-        self.renderTimeText.hidden = NO;
-        self.renderTimeText.stringValue = [NSString stringWithFormat:@"Render Time: %.2lf", mach_absolute_time() * _machTimeToSecs - _renderStartTime];
+        self.renderTimeText.stringValue = [NSString stringWithFormat:@"Render Time: %.2lf",
+                                                mach_absolute_time() * _machTimeToSecs - _renderStartTime];
         [self.renderTimeText sizeToFit];
-    } else if (context == &kNumSamplesChanged) {
-        self.numSamplesText.intValue = self.renderer.numSamples;
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }

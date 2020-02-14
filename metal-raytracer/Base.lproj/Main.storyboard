@@ -764,6 +764,9 @@
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
+                                <connections>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.numSamples" id="Kcm-Ws-pkk"/>
+                                </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3N6-pS-1p8">
                                 <rect key="frame" x="20" y="450" width="105" height="16"/>
@@ -775,6 +778,9 @@
                             </textField>
                             <progressIndicator wantsLayer="YES" ambiguous="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="1jd-UD-oLN">
                                 <rect key="frame" x="20" y="423" width="142" height="20"/>
+                                <connections>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.progress" id="cK2-HM-q5f"/>
+                                </connections>
                             </progressIndicator>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFm-nq-rCJ">
                                 <rect key="frame" x="20" y="400" width="81" height="16"/>
