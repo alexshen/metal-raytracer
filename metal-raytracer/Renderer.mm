@@ -253,7 +253,6 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
                           _sceneUniform.screenSize);
 
     int iterEnd = math::min(_sceneUniform.numSamples, _sceneUniform.iterStart + _sceneUniform.iterNum);
-    int numIter = iterEnd - _sceneUniform.iterStart;
     dispatch_queue_t taskQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t group = dispatch_group_create();
     
@@ -264,7 +263,7 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
                 tracer::Random random(self->_sceneUniform.seed);
                 tracer::RayTracer tracer(random, camera, scene, self->_sceneUniform.backgroundColor);
                 math::float3 color(0);
-                for (int i = 0; i < numIter; ++i) {
+                for (int i = self->_sceneUniform.iterStart; i < iterEnd; ++i) {
                     math::float2 samplePos = math::float2(threadPos) + random.inUnitRect();
                     if (self.debugBVHHit) {
                         color += debugTrace(scene, camera, samplePos);
@@ -274,9 +273,9 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
                         color += tracer.trace<false>(samplePos);
                     }
                 }
-                color /= self->_sceneUniform.numSamples;
-                [self->_sceneImage setColor:[self->_sceneImage colorAt:threadPos] + math::float4(color, 0)
-                                         at:threadPos];
+                auto newColor = ([self->_sceneImage colorAt:threadPos] * (float)self->_sceneUniform.iterStart
+                                 + math::float4(color, 0)) / (float)iterEnd;
+                [self->_sceneImage setColor:newColor at:threadPos];
             });
         }
     }

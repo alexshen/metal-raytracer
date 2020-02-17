@@ -78,8 +78,8 @@ kernel void raytrace(constant Node* nodes [[buffer(BufferIndexNode)]],
         }
     }
 
-    color /= sceneUniform.numSamples;
-    tex.write(tex.read(threadPos) + float4(color, 0.0f), threadPos);
+    float4 newColor = (tex.read(threadPos) * sceneUniform.iterStart + float4(color, 0)) / iterEnd;
+    tex.write(newColor, threadPos);
 }
 
 struct QuadVertexOutput
