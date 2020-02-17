@@ -193,6 +193,11 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
         } else {
             [self _renderWithSoftware];
         }
+        
+        if (self.debugBVHHit) {
+            // debug render finishes in one iteration
+            self.curIter = self.numSamples;
+        }
     }
 
     MTLRenderPassDescriptor* renderPassDescriptor = view.currentRenderPassDescriptor;
@@ -256,30 +261,39 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
     dispatch_queue_t taskQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_group_t group = dispatch_group_create();
     
-    for (int i = 0; i < _sceneUniform.screenSize.y; ++i) {
-        for (int j = 0; j < _sceneUniform.screenSize.x; ++j) {
-            math::uint2 threadPos(j, i);
-            dispatch_group_async(group, taskQueue, ^{
-                tracer::Random random(self->_sceneUniform.seed);
-                tracer::RayTracer tracer(random, camera, scene, self->_sceneUniform.backgroundColor);
-                math::float3 color(0);
-                for (int i = self->_sceneUniform.iterStart; i < iterEnd; ++i) {
-                    math::float2 samplePos = math::float2(threadPos) + random.inUnitRect();
-                    if (self.debugBVHHit) {
-                        color += debugTrace(scene, camera, samplePos);
-                    } else if (self.bruteForce) {
-                        color += tracer.trace<true>(samplePos);
-                    } else {
-                        color += tracer.trace<false>(samplePos);
+    if (self.debugBVHHit) {
+        tracer::Random random(self->_sceneUniform.seed);
+        tracer::RayTracer tracer(random, camera, scene, self->_sceneUniform.backgroundColor);
+        for (int i = 0; i < _sceneUniform.screenSize.y; ++i) {
+            for (int j = 0; j < self->_sceneUniform.screenSize.x; ++j) {
+                math::float3 color = tracer::debugTrace(scene, camera, math::float2(j, i));
+                [self->_sceneImage setColor:math::float4(color, 0) at:math::uint2(j, i)];
+            }
+        }
+    } else {
+        for (int i = 0; i < _sceneUniform.screenSize.y; ++i) {
+            for (int j = 0; j < _sceneUniform.screenSize.x; ++j) {
+                math::uint2 threadPos(j, i);
+                dispatch_group_async(group, taskQueue, ^{
+                    tracer::Random random(self->_sceneUniform.seed);
+                    tracer::RayTracer tracer(random, camera, scene, self->_sceneUniform.backgroundColor);
+                    math::float3 color(0);
+                    for (int i = self->_sceneUniform.iterStart; i < iterEnd; ++i) {
+                        math::float2 samplePos = math::float2(threadPos) + random.inUnitRect();
+                        if (self.bruteForce) {
+                            color += tracer.trace<true>(samplePos);
+                        } else {
+                            color += tracer.trace<false>(samplePos);
+                        }
                     }
-                }
-                auto newColor = ([self->_sceneImage colorAt:threadPos] * (float)self->_sceneUniform.iterStart
-                                 + math::float4(color, 0)) / (float)iterEnd;
-                [self->_sceneImage setColor:newColor at:threadPos];
-            });
+                    math::float4 newColor = ([self->_sceneImage colorAt:threadPos] * (float)self->_sceneUniform.iterStart
+                                             + math::float4(color, 0)) / (float)iterEnd;
+                    [self->_sceneImage setColor:newColor at:threadPos];
+                });
+            }
         }
     }
-    
+
     _softwareRenderFinished = false;
     dispatch_group_notify(group, taskQueue, ^{
         self->_textureDirty = true;

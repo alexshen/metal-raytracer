@@ -65,21 +65,23 @@ kernel void raytrace(constant Node* nodes [[buffer(BufferIndexNode)]],
                           sceneUniform.fovY, sceneUniform.focalLength,
                           sceneUniform.screenSize);
     tracer::RayTracer tracer(random, camera, scene, sceneUniform.backgroundColor);
-    float3 color = float3(0);
-    int iterEnd = min(sceneUniform.numSamples, sceneUniform.iterStart + sceneUniform.iterNum);
-    for (int i = sceneUniform.iterStart; i < iterEnd; ++i) {
-        float2 samplePos = float2(threadPos) + random.inUnitRect();
-        if (g_debugBVHHit) {
-            color += debugTrace(scene, camera, samplePos);
-        } else if (g_bruteForce) {
-            color += tracer.trace<true>(samplePos);
-        } else {
-            color += tracer.trace<false>(samplePos);
+    if (g_debugBVHHit) {
+        tex.write(float4(debugTrace(scene, camera, float2(threadPos)), 0), threadPos);
+    } else {
+        float3 color = float3(0);
+        int iterEnd = min(sceneUniform.numSamples, sceneUniform.iterStart + sceneUniform.iterNum);
+        for (int i = sceneUniform.iterStart; i < iterEnd; ++i) {
+            float2 samplePos = float2(threadPos) + random.inUnitRect();
+            if (g_bruteForce) {
+                color += tracer.trace<true>(samplePos);
+            } else {
+                color += tracer.trace<false>(samplePos);
+            }
         }
-    }
 
-    float4 newColor = (tex.read(threadPos) * sceneUniform.iterStart + float4(color, 0)) / iterEnd;
-    tex.write(newColor, threadPos);
+        float4 newColor = (tex.read(threadPos) * sceneUniform.iterStart + float4(color, 0)) / iterEnd;
+        tex.write(newColor, threadPos);
+    }
 }
 
 struct QuadVertexOutput
