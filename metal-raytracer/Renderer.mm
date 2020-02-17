@@ -46,7 +46,7 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
     id<MTLBuffer> _materialsBuffer;
     SceneUniform _sceneUniform;
 
-    id<MTLRenderPipelineState> _quadPipelineState;
+    id<MTLRenderPipelineState> _quadPipelineStates[2];
     RGBA16Image* _sceneImage;
 
     SceneBuffer* _sceneBuffer;
@@ -125,18 +125,23 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
 - (void)_configQuadPipelineStateWithView:(MTKView*)view
 {
     id<MTLFunction> quadVertex = [_library newFunctionWithName:@"quadVertex"];
-    id<MTLFunction> texturedQuadFrag = [_library newFunctionWithName:@"texturedQuadFrag"];
-    
+    id<MTLFunction> frags[] = {
+        [_library newFunctionWithName:@"texturedQuadCustomFilterFrag"],
+        [_library newFunctionWithName:@"texturedQuadFrag"],
+    };
+
     MTLRenderPipelineDescriptor* desc = [MTLRenderPipelineDescriptor new];
     desc.colorAttachments[0].pixelFormat = view.colorPixelFormat;
-    desc.vertexFunction = quadVertex;
-    desc.fragmentFunction = texturedQuadFrag;
-    
-    NSError* error;
-    _quadPipelineState = [_device newRenderPipelineStateWithDescriptor:desc error:&error];
-    if (!_quadPipelineState) {
-        NSLog(@"%@", error);
-        return;
+    for (int i = 0; i < 2; ++i) {
+        desc.vertexFunction = quadVertex;
+        desc.fragmentFunction = frags[i];
+
+        NSError* error;
+        _quadPipelineStates[i] = [_device newRenderPipelineStateWithDescriptor:desc error:&error];
+        if (!_quadPipelineStates[i]) {
+            NSLog(@"%@", error);
+            return;
+        }
     }
 }
 
@@ -198,7 +203,7 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
         
         [renderEncoder setFrontFacingWinding:MTLWindingCounterClockwise];
         [renderEncoder setCullMode:MTLCullModeBack];
-        [renderEncoder setRenderPipelineState:_quadPipelineState];
+        [renderEncoder setRenderPipelineState:_quadPipelineStates[self.hardwareFilter]];
         [_sceneImage setFragmentTextureFor:renderEncoder at:TextureIndexSceneTex];
         [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangleStrip vertexStart:0 vertexCount:4];
 
@@ -322,6 +327,13 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
 {
     if (_hardwareRendering != hardwareRendering) {
         _hardwareRendering = hardwareRendering;
+        [self _resetRender];
+    }
+}
+
+- (void)setHardwareFilter:(BOOL)hardwareFilter {
+    if (_hardwareFilter != hardwareFilter) {
+        _hardwareFilter = hardwareFilter;
         [self _resetRender];
     }
 }

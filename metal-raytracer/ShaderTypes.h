@@ -26,6 +26,7 @@ enum ConstantIndex
 {
     ConstantIndexBruteForce = 0,
     ConstantIndexDebugBVHHit = 1,
+    ConstantIndexCustomBilinearFilter = 2,
 };
 
 enum TextureIndex

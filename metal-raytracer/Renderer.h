@@ -12,12 +12,13 @@
 //   allows it to accept per-frame update and drawable resize callbacks.
 @interface Renderer : NSObject <MTKViewDelegate>
 
-- (instancetype)initWithMetalKitView:(nonnull MTKView *)view;
+- (nullable instancetype)initWithMetalKitView:(nonnull MTKView *)view;
 
 @property (nonatomic) BOOL bruteForce;
 @property (nonatomic) BOOL debugBVHHit;
 @property (nonatomic) int numSamples;
 @property (nonatomic) BOOL hardwareRendering;
+@property (nonatomic) BOOL hardwareFilter;
 @property (nonatomic, readonly) float progress;
 
 @end

@@ -20,10 +20,11 @@ using namespace metal;
 constant bool g_bruteForce [[function_constant(ConstantIndexBruteForce)]];
 constant bool g_debugBVHHit [[function_constant(ConstantIndexDebugBVHHit)]];
 
+template<access acc>
 struct SceneTexture
 {
-    texture2d<uint, access::read_write> bgTex [[texture(TextureIndexSceneTex)]];
-    texture2d<uint, access::read_write> raTex [[texture(TextureIndexSceneTex + 1)]];
+    texture2d<uint, acc> bgTex [[texture(TextureIndexSceneTex)]];
+    texture2d<uint, acc> raTex [[texture(TextureIndexSceneTex + 1)]];
     
     float4 read(uint2 pos)
     {
@@ -38,6 +39,11 @@ struct SceneTexture
         raTex.write(bgra[1], pos);
     }
     
+    float4 sample(sampler s, float2 uv)
+    {
+        return BGRA16::decode(uint2(bgTex.sample(s, uv).r, raTex.sample(s, uv).r));
+    }
+    
     uint2 size() const
     {
         return uint2(bgTex.get_width(), bgTex.get_height());
@@ -50,7 +56,7 @@ kernel void raytrace(constant Node* nodes [[buffer(BufferIndexNode)]],
                      constant Sphere* spheres [[buffer(BufferIndexSphere)]],
                      constant Material* materials [[buffer(BufferIndexMaterial)]],
                      constant SceneUniform& sceneUniform [[buffer(BufferIndexSceneUniform)]],
-                     SceneTexture tex,
+                     SceneTexture<access::read_write> tex,
                      uint2 threadPos [[thread_position_in_grid]])
 {
     tracer::Random random(sceneUniform.seed);
@@ -97,16 +103,20 @@ vertex QuadVertexOutput quadVertex(uint vertexId [[vertex_id]])
     return output;
 }
 
-fragment float4 texturedQuadFrag(QuadVertexOutput in [[stage_in]], SceneTexture tex)
+fragment float4 texturedQuadCustomFilterFrag(QuadVertexOutput in [[stage_in]], SceneTexture<access::read> tex)
 {
-    //constexpr sampler sceneTexSampler(coord::normalized, filter::nearest, address::clamp_to_edge);
-
-    float2 fragCoord = in.uv * float2(tex.size());
+    float2 fragCoord = in.uv * float2(tex.size()) - 0.5;
     float4 c00 = tex.read(uint2(fragCoord));
     float4 c01 = tex.read(uint2(fragCoord) + uint2(0, 1));
     float4 c10 = tex.read(uint2(fragCoord) + uint2(1, 0));
     float4 c11 = tex.read(uint2(fragCoord) + uint2(1, 1));
-    float2 uv = fract(fragCoord.xy - 0.5);
+    float2 uv = fract(fragCoord.xy);
     
     return mix(mix(c00, c10, uv.x), mix(c01, c11, uv.x), uv.y);
+}
+    
+fragment float4 texturedQuadFrag(QuadVertexOutput in [[stage_in]], SceneTexture<access::sample> tex)
+{
+    constexpr sampler sceneTexSampler(coord::normalized, filter::linear, address::clamp_to_edge);
+    return tex.sample(sceneTexSampler, in.uv);
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15702"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -742,15 +742,28 @@
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.bruteForce" id="ulU-DT-6AP"/>
                                 </connections>
                             </button>
-                            <slider verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iVW-oC-VJn">
-                                <rect key="frame" x="18" y="472" width="146" height="19"/>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OeN-Yr-puV">
+                                <rect key="frame" x="18" y="504" width="115" height="18"/>
+                                <buttonCell key="cell" type="check" title="Hardware Filter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2yb-e4-fAb">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareFilter" id="AWj-zw-aAh"/>
+                                </connections>
+                            </button>
+                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iVW-oC-VJn">
+                                <rect key="frame" x="18" y="457" width="146" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="142" id="gLw-xD-4H2"/>
+                                </constraints>
                                 <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="200" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="2FH-Iq-ioU"/>
                                 <connections>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.numSamples" id="91R-sO-swP"/>
                                 </connections>
                             </slider>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Iot-bj-tNw">
-                                <rect key="frame" x="18" y="497" width="56" height="16"/>
+                                <rect key="frame" x="18" y="482" width="56" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Samples" id="kjV-0b-e07">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -758,7 +771,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SMH-Nh-kWW">
-                                <rect key="frame" x="78" y="497" width="13" height="16"/>
+                                <rect key="frame" x="78" y="482" width="13" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="sqL-HH-frb">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -769,22 +782,24 @@
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3N6-pS-1p8">
-                                <rect key="frame" x="20" y="450" width="105" height="16"/>
+                                <rect key="frame" x="20" y="435" width="105" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Render Progress" id="dKb-z4-yr9">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <progressIndicator wantsLayer="YES" ambiguous="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="1jd-UD-oLN">
-                                <rect key="frame" x="20" y="423" width="142" height="20"/>
+                            <progressIndicator wantsLayer="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="1jd-UD-oLN">
+                                <rect key="frame" x="20" y="408" width="142" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="142" id="Twt-3a-ZJ5"/>
+                                </constraints>
                                 <connections>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.progress" id="cK2-HM-q5f"/>
                                 </connections>
                             </progressIndicator>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nFm-nq-rCJ">
-                                <rect key="frame" x="20" y="400" width="81" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nFm-nq-rCJ">
+                                <rect key="frame" x="20" y="385" width="81" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Render Time" id="cc3-KQ-Grw">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -795,12 +810,13 @@
                         <constraints>
                             <constraint firstItem="iVW-oC-VJn" firstAttribute="top" secondItem="Iot-bj-tNw" secondAttribute="bottom" constant="8" id="16j-tm-tCf"/>
                             <constraint firstItem="3N6-pS-1p8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="3sD-xS-Ux0"/>
-                            <constraint firstItem="Iot-bj-tNw" firstAttribute="top" secondItem="uIQ-6S-riV" secondAttribute="bottom" constant="13" id="4Un-I9-592"/>
-                            <constraint firstItem="SMH-Nh-kWW" firstAttribute="top" secondItem="uIQ-6S-riV" secondAttribute="bottom" constant="13" id="FFS-q8-puB"/>
+                            <constraint firstItem="nFm-nq-rCJ" firstAttribute="top" secondItem="1jd-UD-oLN" secondAttribute="bottom" constant="8" id="Cts-V3-873"/>
                             <constraint firstItem="Oev-jj-eDu" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="HD7-c0-Q90"/>
                             <constraint firstItem="1jd-UD-oLN" firstAttribute="top" secondItem="3N6-pS-1p8" secondAttribute="bottom" constant="8" id="Jvq-Ru-hsJ"/>
+                            <constraint firstItem="OeN-Yr-puV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Kw7-PF-S7T"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Oev-jj-eDu" secondAttribute="trailing" constant="20" symbolic="YES" id="MdJ-Il-5J3"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uIQ-6S-riV" secondAttribute="trailing" constant="20" symbolic="YES" id="OPS-sG-LYZ"/>
+                            <constraint firstItem="Iot-bj-tNw" firstAttribute="top" secondItem="OeN-Yr-puV" secondAttribute="bottom" constant="8" id="PNZ-lL-kcz"/>
                             <constraint firstItem="odr-3f-WfX" firstAttribute="top" secondItem="Oev-jj-eDu" secondAttribute="bottom" constant="6" id="TTt-Py-9IE"/>
                             <constraint firstItem="SMH-Nh-kWW" firstAttribute="leading" secondItem="Iot-bj-tNw" secondAttribute="trailing" constant="8" id="Up0-Wo-Aw1"/>
                             <constraint firstItem="1jd-UD-oLN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="X4b-RN-ZWH"/>
@@ -809,7 +825,10 @@
                             <constraint firstItem="uIQ-6S-riV" firstAttribute="top" secondItem="odr-3f-WfX" secondAttribute="bottom" constant="6" id="eFA-bx-fBU"/>
                             <constraint firstItem="3N6-pS-1p8" firstAttribute="top" secondItem="iVW-oC-VJn" secondAttribute="bottom" constant="8" id="fIe-sG-VCY"/>
                             <constraint firstItem="uIQ-6S-riV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="gNl-rK-833"/>
+                            <constraint firstItem="SMH-Nh-kWW" firstAttribute="top" secondItem="OeN-Yr-puV" secondAttribute="bottom" constant="8" id="hy6-W4-gZ1"/>
+                            <constraint firstItem="OeN-Yr-puV" firstAttribute="top" secondItem="uIQ-6S-riV" secondAttribute="bottom" constant="6" id="qfa-Hm-lat"/>
                             <constraint firstItem="Iot-bj-tNw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="voj-h8-Ziw"/>
+                            <constraint firstItem="nFm-nq-rCJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="yLm-d7-Rgk"/>
                             <constraint firstItem="odr-3f-WfX" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="zcf-yU-dGt"/>
                         </constraints>
                     </view>
