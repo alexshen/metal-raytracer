@@ -716,6 +716,11 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="gnW-us-ZeP">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.debugBVHHit" id="NXl-EF-tlO"/>
                                 </connections>
                             </button>
@@ -729,6 +734,11 @@
                                     </connections>
                                 </buttonCell>
                                 <connections>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="IUF-b1-JZs">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareRendering" id="iSb-gD-6uV"/>
                                 </connections>
                             </button>
@@ -739,6 +749,11 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="YUY-Xq-5N6">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.bruteForce" id="ulU-DT-6AP"/>
                                 </connections>
                             </button>
@@ -749,6 +764,11 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="6nF-bk-7QL">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareFilter" id="AWj-zw-aAh"/>
                                 </connections>
                             </button>
@@ -759,6 +779,11 @@
                                 </constraints>
                                 <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="200" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="2FH-Iq-ioU"/>
                                 <connections>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="XGZ-Rx-BHa">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.numSamples" id="91R-sO-swP"/>
                                 </connections>
                             </slider>

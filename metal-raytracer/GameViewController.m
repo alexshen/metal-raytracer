@@ -20,6 +20,7 @@ static char kProgressChanged;
     MTKView *_view;
     double _machTimeToSecs;
     double _renderStartTime;
+    double _renderEndTime;
 }
 
 - (void)viewDidLoad
@@ -58,9 +59,12 @@ static char kProgressChanged;
     if (context == &kProgressChanged) {
         if (self.renderer.progress == 0.0f) {
             _renderStartTime = mach_absolute_time() * _machTimeToSecs;
+            _renderEndTime = 0;
+        } else if (self.renderer.progress == 1.0f && !_renderEndTime) {
+            _renderEndTime = mach_absolute_time() * _machTimeToSecs;
         }
-        self.renderTimeText.stringValue = [NSString stringWithFormat:@"Render Time: %.2lf",
-                                                mach_absolute_time() * _machTimeToSecs - _renderStartTime];
+        double endTime = _renderEndTime ? _renderEndTime : mach_absolute_time() * _machTimeToSecs;
+        self.renderTimeText.stringValue = [NSString stringWithFormat:@"Render Time: %.2lf", endTime - _renderStartTime];
         [self.renderTimeText sizeToFit];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

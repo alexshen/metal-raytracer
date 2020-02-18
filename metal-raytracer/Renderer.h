@@ -19,7 +19,8 @@
 @property (nonatomic) int numSamples;
 @property (nonatomic) BOOL hardwareRendering;
 @property (nonatomic) BOOL hardwareFilter;
-@property (nonatomic, readonly) float progress;
+@property (readonly) float progress;
+@property (readonly) BOOL isCancellingSoftwareRender;
 
 @end
 

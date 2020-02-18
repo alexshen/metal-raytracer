@@ -26,15 +26,24 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
     return glm::uvec2(size.width, size.height);
 }
 
+enum SoftwareRenderState
+{
+    Stopped,
+    InProgress,
+    Cancelling,
+};
+
 @interface Renderer ()
-@property (nonatomic) int curIter;
+@property float progress;
 @end
 
 @implementation Renderer
 {
+    int _curIter;
     int _iterNum;
-    bool _textureDirty;
-    std::atomic<bool> _softwareRenderFinished;
+    bool _needResetRender;
+    std::atomic<SoftwareRenderState> _softwareRenderState;
+    std::atomic<int> _softwareDebugProgressCounter;
 
     id<MTLDevice> _device;
     id<MTLLibrary> _library;
@@ -63,7 +72,6 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
     if (self) {
         _iterNum = 1;
         _hardwareRendering = YES;
-        _softwareRenderFinished = true;
         [self _loadMetalWithView:view];
     }
 
@@ -177,16 +185,19 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
 
 - (void)drawInMTKView:(nonnull MTKView *)view
 {
+    if (_needResetRender && _softwareRenderState == SoftwareRenderState::Stopped) {
+        _needResetRender = false;
+        _curIter = 0;
+        self.progress = 0;
+        [_sceneImage reset];
+    }
+    
     id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
-    if (self.curIter < self.numSamples && _softwareRenderFinished) {
-        if (_textureDirty) {
-            [_sceneImage update];
-            _textureDirty = false;
-        }
-        _sceneUniform.iterStart = self.curIter;
+    if (_curIter < self.numSamples && _softwareRenderState == SoftwareRenderState::Stopped) {
+        _sceneUniform.iterStart = _curIter;
         _sceneUniform.seed = _sceneUniform.iterStart * 17 + _sceneUniform.iterNum;
         
-        ++self.curIter;
+        ++_curIter;
 
         if (self.hardwareRendering) {
             [self _renderWithCommandBuffer:commandBuffer view:view];
@@ -196,7 +207,7 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
         
         if (self.debugBVHHit) {
             // debug render finishes in one iteration
-            self.curIter = self.numSamples;
+            _curIter = self.numSamples;
         }
     }
 
@@ -218,6 +229,14 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
 
     [commandBuffer commit];
     [commandBuffer waitUntilCompleted];
+    
+    if ((self.hardwareRendering && _softwareRenderState == SoftwareRenderState::Stopped) ||
+        (!self.hardwareRendering && !self.debugBVHHit)) {
+        self.progress = (float)_curIter / self.numSamples;
+    } else if (!self.hardwareRendering && self.debugBVHHit &&
+               _softwareRenderState == SoftwareRenderState::InProgress) {
+        self.progress = (float)_softwareDebugProgressCounter / _sceneUniform.screenSize.y;
+    }
 }
 
 - (void)_renderWithCommandBuffer:(id<MTLCommandBuffer>)commandBuffer view:(MTKView * _Nonnull)view
@@ -265,16 +284,25 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
         tracer::Random random(self->_sceneUniform.seed);
         tracer::RayTracer tracer(random, camera, scene, self->_sceneUniform.backgroundColor);
         for (int i = 0; i < _sceneUniform.screenSize.y; ++i) {
-            for (int j = 0; j < self->_sceneUniform.screenSize.x; ++j) {
-                math::float3 color = tracer::debugTrace(scene, camera, math::float2(j, i));
-                [self->_sceneImage setColor:math::float4(color, 0) at:math::uint2(j, i)];
-            }
+            dispatch_group_async(group, taskQueue, ^{
+                if (self->_softwareRenderState == SoftwareRenderState::Cancelling) {
+                    return;
+                }
+                for (int j = 0; j < self->_sceneUniform.screenSize.x; ++j) {
+                    math::float3 color = tracer::debugTrace(scene, camera, math::float2(j, i));
+                    [self->_sceneImage setColor:math::float4(color, 0) at:math::uint2(j, i)];
+                }
+                ++self->_softwareDebugProgressCounter;
+            });
         }
     } else {
         for (int i = 0; i < _sceneUniform.screenSize.y; ++i) {
             for (int j = 0; j < _sceneUniform.screenSize.x; ++j) {
                 math::uint2 threadPos(j, i);
                 dispatch_group_async(group, taskQueue, ^{
+                    if (self->_softwareRenderState == SoftwareRenderState::Cancelling) {
+                        return;
+                    }
                     tracer::Random random(self->_sceneUniform.seed);
                     tracer::RayTracer tracer(random, camera, scene, self->_sceneUniform.backgroundColor);
                     math::float3 color(0);
@@ -293,11 +321,17 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
             }
         }
     }
-
-    _softwareRenderFinished = false;
+    [self _setSoftwareRenderState:SoftwareRenderState::InProgress];
     dispatch_group_notify(group, taskQueue, ^{
-        self->_textureDirty = true;
-        self->_softwareRenderFinished = true;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self->_softwareRenderState == SoftwareRenderState::Cancelling) {
+                self->_needResetRender = true;
+            } else {
+                [self->_sceneImage update];
+            }
+            [self _setSoftwareRenderState:SoftwareRenderState::Stopped];
+            self->_softwareDebugProgressCounter = 0;
+        });
     });
 }
 
@@ -309,16 +343,18 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
 - (void)setBruteForce:(BOOL)bruteForce
 {
     if (_bruteForce != bruteForce) {
+        [self _cancelSoftwareRender];
         _bruteForce = bruteForce;
-        [self _resetRender];
+        _needResetRender = true;
     }
 }
 
 - (void)setDebugBVHHit:(BOOL)debugBVHHit
 {
     if (_debugBVHHit != debugBVHHit) {
+        [self _cancelSoftwareRender];
         _debugBVHHit = debugBVHHit;
-        [self _resetRender];
+        _needResetRender = true;
     }
 }
 
@@ -331,43 +367,45 @@ inline static glm::uvec2 CGSizeToVec2(CGSize size)
 {
     NSAssert(numSamples > 0, @"numSamples must be positive");
     if (_sceneUniform.numSamples != numSamples) {
+        [self _cancelSoftwareRender];
         _sceneUniform.numSamples = numSamples;
-        [self _resetRender];
+        _needResetRender = true;
     }
 }
 
 - (void)setHardwareRendering:(BOOL)hardwareRendering
 {
+    NSAssert(!self.isCancellingSoftwareRender, @"Cannot change rendering mode while cancelling software render");
     if (_hardwareRendering != hardwareRendering) {
+        [self _cancelSoftwareRender];
+        _needResetRender = true;
         _hardwareRendering = hardwareRendering;
-        [self _resetRender];
     }
 }
 
 - (void)setHardwareFilter:(BOOL)hardwareFilter {
     if (_hardwareFilter != hardwareFilter) {
         _hardwareFilter = hardwareFilter;
-        [self _resetRender];
+        if (self.hardwareRendering) {
+            _needResetRender = true;
+        }
     }
 }
 
-- (void)_resetRender
-{
-    self.curIter = 0;
-    [_sceneImage reset];
-}
-
-- (float)progress
-{
-    return float(_curIter) / self.numSamples;
-}
-
-- (void)setCurIter:(int)curIter
-{
-    if (_curIter != curIter) {
-        [self willChangeValueForKey:@"progress"];
-        _curIter = curIter;
-        [self didChangeValueForKey:@"progress"];
+- (void)_cancelSoftwareRender {
+    if (!self.hardwareRendering && _softwareRenderState == SoftwareRenderState::InProgress) {
+        [self _setSoftwareRenderState:SoftwareRenderState::Cancelling];
     }
 }
+
+- (void)_setSoftwareRenderState:(SoftwareRenderState)state {
+    [self willChangeValueForKey:@"isCancellingSoftwareRender"];
+    _softwareRenderState = state;
+    [self didChangeValueForKey:@"isCancellingSoftwareRender"];
+}
+
+- (BOOL)isCancellingSoftwareRender {
+    return _softwareRenderState == SoftwareRenderState::Cancelling;
+}
+
 @end
