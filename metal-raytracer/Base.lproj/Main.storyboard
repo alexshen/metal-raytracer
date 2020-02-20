@@ -709,153 +709,184 @@
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Oev-jj-eDu">
-                                <rect key="frame" x="18" y="564" width="93" height="18"/>
-                                <buttonCell key="cell" type="check" title="Debug BVH" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cIZ-so-CSh">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="gnW-us-ZeP">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.debugBVHHit" id="NXl-EF-tlO"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="odr-3f-WfX">
-                                <rect key="frame" x="18" y="544" width="146" height="18"/>
-                                <buttonCell key="cell" type="check" title="Hardware Rendering" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kcm-cy-b0v">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <connections>
-                                        <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareRendering" id="BjQ-ud-3ej"/>
-                                    </connections>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="IUF-b1-JZs">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareRendering" id="iSb-gD-6uV"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uIQ-6S-riV">
-                                <rect key="frame" x="18" y="524" width="93" height="18"/>
-                                <buttonCell key="cell" type="check" title="Brute Force" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EkM-66-GEW">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="YUY-Xq-5N6">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.bruteForce" id="ulU-DT-6AP"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OeN-Yr-puV">
-                                <rect key="frame" x="18" y="504" width="115" height="18"/>
-                                <buttonCell key="cell" type="check" title="Hardware Filter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2yb-e4-fAb">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="6nF-bk-7QL">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareFilter" id="AWj-zw-aAh"/>
-                                </connections>
-                            </button>
-                            <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iVW-oC-VJn">
-                                <rect key="frame" x="18" y="457" width="146" height="19"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="142" id="gLw-xD-4H2"/>
-                                </constraints>
-                                <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="200" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="2FH-Iq-ioU"/>
-                                <connections>
-                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="XGZ-Rx-BHa">
-                                        <dictionary key="options">
-                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                        </dictionary>
-                                    </binding>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.numSamples" id="91R-sO-swP"/>
-                                </connections>
-                            </slider>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Iot-bj-tNw">
-                                <rect key="frame" x="18" y="482" width="56" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Samples" id="kjV-0b-e07">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SMH-Nh-kWW">
-                                <rect key="frame" x="78" y="482" width="13" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="sqL-HH-frb">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                                <connections>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.numSamples" id="Kcm-Ws-pkk"/>
-                                </connections>
-                            </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3N6-pS-1p8">
-                                <rect key="frame" x="20" y="435" width="105" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Render Progress" id="dKb-z4-yr9">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <progressIndicator wantsLayer="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="1jd-UD-oLN">
-                                <rect key="frame" x="20" y="408" width="142" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="142" id="Twt-3a-ZJ5"/>
-                                </constraints>
-                                <connections>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.progress" id="cK2-HM-q5f"/>
-                                </connections>
-                            </progressIndicator>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nFm-nq-rCJ">
-                                <rect key="frame" x="20" y="385" width="81" height="16"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Render Time" id="cc3-KQ-Grw">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" fixedFrame="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f9h-wA-JGG">
+                                <rect key="frame" x="20" y="387" width="142" height="193"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Oev-jj-eDu">
+                                        <rect key="frame" x="-2" y="177" width="93" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Debug BVH" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cIZ-so-CSh">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.debugBVHHit" id="NXl-EF-tlO"/>
+                                            <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="gnW-us-ZeP">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="odr-3f-WfX">
+                                        <rect key="frame" x="-2" y="156" width="146" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Hardware Rendering" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kcm-cy-b0v">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareRendering" id="BjQ-ud-3ej"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareRendering" id="iSb-gD-6uV"/>
+                                            <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="IUF-b1-JZs">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uIQ-6S-riV">
+                                        <rect key="frame" x="-2" y="135" width="93" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Brute Force" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="EkM-66-GEW">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.bruteForce" id="ulU-DT-6AP"/>
+                                            <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="YUY-Xq-5N6">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OeN-Yr-puV">
+                                        <rect key="frame" x="-2" y="114" width="115" height="18"/>
+                                        <buttonCell key="cell" type="check" title="Hardware Filter" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2yb-e4-fAb">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.hardwareFilter" id="AWj-zw-aAh"/>
+                                            <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="6nF-bk-7QL">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </button>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZoT-bA-eXC">
+                                        <rect key="frame" x="0.0" y="93" width="69" height="16"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Iot-bj-tNw">
+                                                <rect key="frame" x="-2" y="0.0" width="56" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Samples" id="kjV-0b-e07">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SMH-Nh-kWW">
+                                                <rect key="frame" x="58" y="0.0" width="13" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="0" id="sqL-HH-frb">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.numSamples" id="Kcm-Ws-pkk"/>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iVW-oC-VJn">
+                                        <rect key="frame" x="-2" y="69" width="146" height="19"/>
+                                        <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="200" doubleValue="1" tickMarkPosition="above" sliderType="linear" id="2FH-Iq-ioU"/>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="enabled" keyPath="renderer.isCancellingSoftwareRender" id="XGZ-Rx-BHa">
+                                                <dictionary key="options">
+                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                                </dictionary>
+                                            </binding>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.numSamples" id="91R-sO-swP"/>
+                                        </connections>
+                                    </slider>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3N6-pS-1p8">
+                                        <rect key="frame" x="-2" y="48" width="105" height="16"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Render Progress" id="dKb-z4-yr9">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <progressIndicator wantsLayer="YES" maxValue="1" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="1jd-UD-oLN">
+                                        <rect key="frame" x="0.0" y="22" width="142" height="20"/>
+                                        <connections>
+                                            <binding destination="XfG-lQ-9wD" name="value" keyPath="renderer.progress" id="cK2-HM-q5f"/>
+                                        </connections>
+                                    </progressIndicator>
+                                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="7" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="03U-0L-8wB">
+                                        <rect key="frame" x="0.0" y="0.0" width="103" height="16"/>
+                                        <subviews>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nFm-nq-rCJ">
+                                                <rect key="frame" x="-2" y="0.0" width="81" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Render Time" id="cc3-KQ-Grw">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sO5-zL-J7j">
+                                                <rect key="frame" x="82" y="0.0" width="23" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="0.0" id="t5a-Nh-2XJ">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="iVW-oC-VJn" firstAttribute="top" secondItem="Iot-bj-tNw" secondAttribute="bottom" constant="8" id="16j-tm-tCf"/>
-                            <constraint firstItem="3N6-pS-1p8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="3sD-xS-Ux0"/>
-                            <constraint firstItem="nFm-nq-rCJ" firstAttribute="top" secondItem="1jd-UD-oLN" secondAttribute="bottom" constant="8" id="Cts-V3-873"/>
-                            <constraint firstItem="Oev-jj-eDu" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="HD7-c0-Q90"/>
-                            <constraint firstItem="1jd-UD-oLN" firstAttribute="top" secondItem="3N6-pS-1p8" secondAttribute="bottom" constant="8" id="Jvq-Ru-hsJ"/>
-                            <constraint firstItem="OeN-Yr-puV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="Kw7-PF-S7T"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Oev-jj-eDu" secondAttribute="trailing" constant="20" symbolic="YES" id="MdJ-Il-5J3"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uIQ-6S-riV" secondAttribute="trailing" constant="20" symbolic="YES" id="OPS-sG-LYZ"/>
-                            <constraint firstItem="Iot-bj-tNw" firstAttribute="top" secondItem="OeN-Yr-puV" secondAttribute="bottom" constant="8" id="PNZ-lL-kcz"/>
-                            <constraint firstItem="odr-3f-WfX" firstAttribute="top" secondItem="Oev-jj-eDu" secondAttribute="bottom" constant="6" id="TTt-Py-9IE"/>
-                            <constraint firstItem="SMH-Nh-kWW" firstAttribute="leading" secondItem="Iot-bj-tNw" secondAttribute="trailing" constant="8" id="Up0-Wo-Aw1"/>
-                            <constraint firstItem="1jd-UD-oLN" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="X4b-RN-ZWH"/>
-                            <constraint firstItem="Oev-jj-eDu" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="Zp4-iM-BRU"/>
-                            <constraint firstItem="iVW-oC-VJn" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="agd-Uf-TZo"/>
-                            <constraint firstItem="uIQ-6S-riV" firstAttribute="top" secondItem="odr-3f-WfX" secondAttribute="bottom" constant="6" id="eFA-bx-fBU"/>
-                            <constraint firstItem="3N6-pS-1p8" firstAttribute="top" secondItem="iVW-oC-VJn" secondAttribute="bottom" constant="8" id="fIe-sG-VCY"/>
-                            <constraint firstItem="uIQ-6S-riV" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="gNl-rK-833"/>
-                            <constraint firstItem="SMH-Nh-kWW" firstAttribute="top" secondItem="OeN-Yr-puV" secondAttribute="bottom" constant="8" id="hy6-W4-gZ1"/>
-                            <constraint firstItem="OeN-Yr-puV" firstAttribute="top" secondItem="uIQ-6S-riV" secondAttribute="bottom" constant="6" id="qfa-Hm-lat"/>
-                            <constraint firstItem="Iot-bj-tNw" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="voj-h8-Ziw"/>
-                            <constraint firstItem="nFm-nq-rCJ" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="22" id="yLm-d7-Rgk"/>
-                            <constraint firstItem="odr-3f-WfX" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="zcf-yU-dGt"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="bruteForceToggle" destination="uIQ-6S-riV" id="Ms4-ut-TfU"/>
@@ -864,7 +895,7 @@
                         <outlet property="numSamplesSlider" destination="iVW-oC-VJn" id="bM1-w7-koW"/>
                         <outlet property="numSamplesText" destination="SMH-Nh-kWW" id="l7r-cX-Rp3"/>
                         <outlet property="renderProgressIndicator" destination="1jd-UD-oLN" id="1hR-lk-IBq"/>
-                        <outlet property="renderTimeText" destination="nFm-nq-rCJ" id="eT5-fc-d2m"/>
+                        <outlet property="renderTimeText" destination="sO5-zL-J7j" id="KjL-pW-sMg"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

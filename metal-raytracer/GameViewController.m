@@ -64,8 +64,7 @@ static char kProgressChanged;
             _renderEndTime = mach_absolute_time() * _machTimeToSecs;
         }
         double endTime = _renderEndTime ? _renderEndTime : mach_absolute_time() * _machTimeToSecs;
-        self.renderTimeText.stringValue = [NSString stringWithFormat:@"Render Time: %.2lf", endTime - _renderStartTime];
-        [self.renderTimeText sizeToFit];
+        self.renderTimeText.stringValue = [NSString stringWithFormat:@"%.2lf", endTime - _renderStartTime];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
